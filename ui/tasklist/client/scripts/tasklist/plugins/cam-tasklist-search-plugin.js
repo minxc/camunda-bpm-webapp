@@ -145,8 +145,17 @@ var Controller = [
         }
 
         angular.forEach($scope.searches, function(search) {
-          if (typeof tempQuery[search.type.value.key] === 'object') {
-            tempQuery[search.type.value.key].push({
+          const searchKey = search.type.value.key;
+
+          if (
+            search.operator.value.key === 'in' &&
+            typeof tempQuery[searchKey] === 'object'
+          ) {
+            tempQuery[searchKey] = tempQuery[searchKey].concat(
+              getQueryValueBySearch(search)
+            );
+          } else if (typeof tempQuery[searchKey] === 'object') {
+            tempQuery[searchKey].push({
               name:
                 typeof search.name.value === 'object'
                   ? search.name.value.key
@@ -158,7 +167,7 @@ var Controller = [
             tempQuery[
               sanitizeProperty(
                 search,
-                search.type.value.key,
+                searchKey,
                 search.operator.value.key,
                 search.value.value
               )
