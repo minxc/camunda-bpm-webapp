@@ -103,6 +103,11 @@
         </span>
       </td>
 
+      <td class="failedActivityId"
+          cam-widget-clipboard="incident.failedActivityName">
+        {{ incident.failedActivityName }}
+      </td>
+
       <td class="cause instance-id">
         <span ng-show="incident.causeIncidentProcessInstanceId !== incident.processInstanceId"
               cam-widget-clipboard="incident.causeIncidentProcessInstanceId">
